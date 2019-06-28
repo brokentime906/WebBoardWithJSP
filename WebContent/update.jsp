@@ -100,7 +100,7 @@
 		 				</thead>
 		 				<tbody>
 		 					<tr>
-		 						<td><%= bbs.getBbsTitle() %></td>
+		 						<td><input type="text" class="form-control" name="bbsTitle" value="<%= bbs.getBbsTitle() %>"></td>
 		 					</tr>
 		 					<tr>
 		 						<td><textarea class="form-control"  name="bbsContent" maxlength="2048" style="height:350px;"><%=bbs.getBbsContent() %></textarea></td>
@@ -108,7 +108,7 @@
 		 				</tbody>
 		 				
 	 				</table>
-	 				<input type="submit" class="btn btn-primary pull-right" value="수정"> 
+	 				<input onclick="return confirm('수정 진짜 할거야?')" type="submit" class="btn btn-primary pull-right" value="수정"> 
 	 			</form>
 	 			
 	 		</div>

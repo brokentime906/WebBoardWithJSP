@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width",initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/custom.css">
 <title>JSP 게시판 웹 사이트</title>
 </head>
 <body>
@@ -66,23 +67,15 @@
 	 			
 	 		</div>
 	 	</nav>
-	 	<h1 style="text-align:center;">
-	 		<%
-	 			if(userID == null){
-	 			
-	 		%>
-	 			<p>아직은 아무것도 안 만들어 놨습니다아.</p>
-	 		<%
-	 			}else{
-	 				PrintWriter script = response.getWriter();
-	 				script.println("<script>");
-	 				script.println("<p>님 환영합니다</p>");
-	 				script.println("</script>");
-	 			}
-	 		%>
-	 		
-	 	</h1>
-	 		 	
+	 	<div class="container">
+	 		<div class="jumbotron">
+	 			<h1>웹 사이트 소개</h1>
+	 			<p>이거는 실험용으로 한번 만들어 봤어요</p>
+	 			<p><a class="btn btn-primary btn-pull" href="#" role="button" >자세히 알아보기	</a></p>
+	 		</div>
+	 	</div>
+	 	
+	 	
 	 		
 	 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	 	<script src="js/bootstrap.js"></script>

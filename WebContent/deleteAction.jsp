@@ -35,17 +35,11 @@
 			script.println("</script>");
 		}
 		else{
-			if(bbs.getBbsContent() == null){
-				PrintWriter script = response.getWriter();
-				script.println("<script>");
-				script.println("alert('입력이 안된 사항이 있습니다.')");
-				script.println("history.back()");
-				script.println("</script>");
-			}
-			else{
+			
+			{
 				BbsDAO bbsDAO = new BbsDAO();
 				
-				int result = bbsDAO.updateBbs(bbsID,bbs.getBbsTitle(),bbs.getBbsContent());
+				int result = bbsDAO.deleteBbs(bbsID);
 				
 				
 				if (result ==-1){
@@ -60,7 +54,7 @@
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					//script.println("location.href='view.jsp?bbsID=" + bbs.getBbsID()+"'");
-					script.println("location.href='view.jsp?bbsID=" + bbsID+"'");
+					script.println("location.href='bbs.jsp'");
 					script.println("</script>");
 				}
 			}	

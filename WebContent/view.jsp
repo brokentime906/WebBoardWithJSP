@@ -126,8 +126,8 @@
 	 				<%
 	 					if(userID != null && userID.equals(bbs.getUserID())){
 	 				%>
-	 					<a href="update.jsp?bbsID=<%=bbs.getBbsID() %>" class="btn btn-primary ">수정</a>
-	 					<a href="deleteAction.jsp?bbsID=<%=bbs.getBbsID() %>" class="btn btn-primary ">삭제</a>
+	 					<a onclick="return confirm('수정 진짜 할거야?')"href="update.jsp?bbsID=<%=bbs.getBbsID() %>" class="btn btn-primary ">수정</a>
+	 					<a onclick="return confirm('삭제 진짜 할거야?')" href="deleteAction.jsp?bbsID=<%=bbs.getBbsID() %>" class="btn btn-primary ">삭제</a>
 	 				<%
 	 					}
 	 				%>
