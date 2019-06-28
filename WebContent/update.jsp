@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.io.PrintWriter" %>
+<%@ page import = "bbs.Bbs" %>
+<%@ page import = "bbs.BbsDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width",initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>JSP 게시판 웹 사이트</title>
+<title>바뀐ㅇ거맞냐</title>
 </head>
 <body>
 	<%
@@ -15,6 +17,26 @@
 		if(session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
 		}
+		if(userID == null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('로그인이 되어잇지 않습니다 로그인해주세요')");
+			script.println("location.href='login.jsp'");
+			script.println("</script>");
+		}
+		int bbsID = 0;
+		if(request.getParameter("bbsID") != null){
+			bbsID = Integer.parseInt(request.getParameter("bbsID"));
+		}
+		if(bbsID == 0){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('로그인이 되어잇지 않습니다 로그인해주세요')");
+			script.println("location.href='login.jsp'");
+			script.println("</script>");
+		}
+		Bbs bbs = new BbsDAO().getBbs(bbsID);
+		
 	%>
 	 	<nav class="navbar navbar-default">
 	 		<div class="navbar-header">
@@ -26,7 +48,7 @@
 	 					<span class="icon-bar"></span>
 	 					<span class="icon-bar"></span>
 	 			</button>
-	 			<a class="navbar-brand" href="main.jsp">JSP 게시판 웹 사이트</a>
+	 			<a class="navbar-brand" href="main.jsp">세희야 사랑해</a>
 	 		</div>
 	 		
 	 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -66,23 +88,31 @@
 	 			
 	 		</div>
 	 	</nav>
-	 	<h1 style="text-align:center;">
-	 		<%
-	 			if(userID == null){
+	 	
+	 	<div class="container">
+	 		<div class="row">
+	 			<form method="post" action="updateAction.jsp?bbsID=<%=bbsID %>">
+	 				<table class="table table-striped" style="text-align:center; border: 1px solid #dddddd">
+		 				<thead>
+		 					<tr>
+		 						<th colspan="2" style="background-color: #eeeeee;text-align:center;">글 수정</th>
+		 					</tr>
+		 				</thead>
+		 				<tbody>
+		 					<tr>
+		 						<td><%= bbs.getBbsTitle() %></td>
+		 					</tr>
+		 					<tr>
+		 						<td><textarea class="form-control"  name="bbsContent" maxlength="2048" style="height:350px;"><%=bbs.getBbsContent() %></textarea></td>
+		 					</tr>
+		 				</tbody>
+		 				
+	 				</table>
+	 				<input type="submit" class="btn btn-primary pull-right" value="수정"> 
+	 			</form>
 	 			
-	 		%>
-	 			<p>아직은 아무것도 안 만들어 놨습니다아.</p>
-	 		<%
-	 			}else{
-	 				PrintWriter script = response.getWriter();
-	 				script.println("<script>");
-	 				script.println("<p>님 환영합니다</p>");
-	 				script.println("</script>");
-	 			}
-	 		%>
-	 		
-	 	</h1>
-	 		 	
+	 		</div>
+	 	</div>
 	 		
 	 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	 	<script src="js/bootstrap.js"></script>

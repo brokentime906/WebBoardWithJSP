@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.io.PrintWriter" %>
+<%@ page import = "bbs.Bbs" %>
+<%@ page import = "bbs.BbsDAO" %>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width",initial-scale="1">
+
+<meta name="viewport" content="width=device-width" initial-scale="1" charset="UTF-8">
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>JSP 게시판 웹 사이트</title>
+<title>바뀐ㅇ거맞냐</title>
 </head>
 <body>
 	<%
@@ -15,6 +21,25 @@
 		if(session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
 		}
+		
+		int bbsID = 0;
+		if(request.getParameter("bbsID") != null){
+			bbsID =  Integer.parseInt(request.getParameter("bbsID") );
+		}
+		if(bbsID == 0 ){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('유효하지 않은 글 입니다.')");
+			script.println("location.href='bbs.jsp'");
+			script.println("</script>");
+		}
+		int pageNumber= 1;
+		if(request.getParameter("pageNumber") != null){
+			pageNumber= Integer.parseInt(request.getParameter("pageNumber"));
+		}
+		Bbs bbs = new BbsDAO().getBbs(bbsID);
+		
+		
 	%>
 	 	<nav class="navbar navbar-default">
 	 		<div class="navbar-header">
@@ -66,23 +91,48 @@
 	 			
 	 		</div>
 	 	</nav>
-	 	<h1 style="text-align:center;">
-	 		<%
-	 			if(userID == null){
-	 			
-	 		%>
-	 			<p>아직은 아무것도 안 만들어 놨습니다아.</p>
-	 		<%
-	 			}else{
-	 				PrintWriter script = response.getWriter();
-	 				script.println("<script>");
-	 				script.println("<p>님 환영합니다</p>");
-	 				script.println("</script>");
-	 			}
-	 		%>
-	 		
-	 	</h1>
-	 		 	
+	 	
+	 	<div class="container">
+	 		<div class="row">	 			
+	 				<table class="table table-striped" style="text-align:center; border: 1px solid #dddddd">
+		 				<thead>
+		 					<tr>
+		 						<th colspan="1" style="background-color: #eeeeee;text-align:center;">게시판 글 보기</th>
+		 					</tr>
+		 				</thead>
+		 				<tbody>
+		 					<tr>
+		 						<td style="width:20%;">글 제목</td>
+		 						<td colspan="2"><%= bbs.getBbsTitle() %> </td>
+		 					</tr>
+		 					<tr>
+		 						<td >작성자</td>
+		 						<td colspan="2"><%= bbs.getUserID() %> </td>
+		 					</tr>
+		 					
+		 					<tr>
+		 						<td>작성 일자</td>
+	 							<td><%= bbs.getBbsDate().substring(0,11) + bbs.getBbsDate().substring(11,13)+"시 " +bbs.getBbsDate().substring(14,16)+"분 "%></td>
+		 					</tr>
+		 					
+		 					<tr>
+		 						<td>글 내용</td>
+		 						<td colspan="2" style="min-height:200px; text-align: left;"><%= bbs.getBbsContent() %> </td>
+		 					</tr>
+		 				</tbody>
+		 				
+	 				</table>		
+	 				<a href="bbs.jsp?pageNumber=<%= pageNumber %>" class="btn btn-primary">게시판으로 가기</a>
+	 				<%
+	 					if(userID != null && userID.equals(bbs.getUserID())){
+	 				%>
+	 					<a href="update.jsp?bbsID=<%=bbs.getBbsID() %>" class="btn btn-primary ">수정</a>
+	 					<a href="deleteAction.jsp?bbsID=<%=bbs.getBbsID() %>" class="btn btn-primary ">삭제</a>
+	 				<%
+	 					}
+	 				%>
+	 		</div>
+	 	</div>
 	 		
 	 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	 	<script src="js/bootstrap.js"></script>

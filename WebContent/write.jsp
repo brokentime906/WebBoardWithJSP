@@ -7,13 +7,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width",initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>JSP 게시판 웹 사이트</title>
+<title>바뀐ㅇ거맞냐</title>
 </head>
 <body>
 	<%
 		String userID = null;
 		if(session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
+		}
+		if(userID == null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('로그인이 되어잇지 않습니다 로그인해주세요')");
+			script.println("location.href='login.jsp'");
+			script.println("</script>");
 		}
 	%>
 	 	<nav class="navbar navbar-default">
@@ -66,23 +73,31 @@
 	 			
 	 		</div>
 	 	</nav>
-	 	<h1 style="text-align:center;">
-	 		<%
-	 			if(userID == null){
+	 	
+	 	<div class="container">
+	 		<div class="row">
+	 			<form method="post" action="writeAction.jsp">
+	 				<table class="table table-striped" style="text-align:center; border: 1px solid #dddddd">
+		 				<thead>
+		 					<tr>
+		 						<th colspan="2" style="background-color: #eeeeee;text-align:center;">게시판 글쓰기 양식</th>
+		 					</tr>
+		 				</thead>
+		 				<tbody>
+		 					<tr>
+		 						<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"></td>
+		 					</tr>
+		 					<tr>
+		 						<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height:350px;"></textarea></td>
+		 					</tr>
+		 				</tbody>
+		 				
+	 				</table>
+	 				<input type="submit" class="btn btn-primary pull-right" value="글쓰기"> 
+	 			</form>
 	 			
-	 		%>
-	 			<p>아직은 아무것도 안 만들어 놨습니다아.</p>
-	 		<%
-	 			}else{
-	 				PrintWriter script = response.getWriter();
-	 				script.println("<script>");
-	 				script.println("<p>님 환영합니다</p>");
-	 				script.println("</script>");
-	 			}
-	 		%>
-	 		
-	 	</h1>
-	 		 	
+	 		</div>
+	 	</div>
 	 		
 	 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	 	<script src="js/bootstrap.js"></script>

@@ -33,8 +33,8 @@
 	 					role="button" aria-haspopup="true" aria-expanded="false">
 	 					접속하기<span class="caret"></span></a>
 	 					<ul class="dropdown-menu">
-	 						<li class="active"><a href="login.jsp">로그인</a>
-	 						<li><a href="join.jsp">회원가입</a>
+	 						<li><a href="login.jsp">로그인</a>
+	 						<li class="active"><a href="join.jsp">회원가입</a>
 	 					</ul>
 	 			</ul>
 	 		</div>
