@@ -1,3 +1,9 @@
+all file is  in  ./WebContent/ 
+
+Execution Environment is 
+  eclipse + tomcat
+
+
 19/6/29 00:10 13강까지 들음
 글 수정 삭제 기능
 14,15강은 디자인 , 웹서버 배포니까 그냥 제낍니다
